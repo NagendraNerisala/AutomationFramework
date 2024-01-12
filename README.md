@@ -16,11 +16,13 @@ This is one unified automation framework that I have crafted to execute all the 
 
 
 
-4. Create a New Project by Get from VCS
+4. Restart IDEA
+   
+5.  Create a New Project by Get from VCS
    
 https://github.com/NagendraNerisala/AutomationFramework
 
-5. Build or Reload Maven Project
+6. Build or Reload Maven Project
 
 **Steps to execute Automation**
 1. Open Runner File from TestRunner within Framework and configure the tag under tags.
