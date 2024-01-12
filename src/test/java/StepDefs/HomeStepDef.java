@@ -28,20 +28,19 @@ public class HomeStepDef {
 
     @Given("open chrome browser")
     public void openChromeBrowser() throws InterruptedException {
+        // instantiate a new ChromeDriver object
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        System.out.println("Automation opened the chrome browser successfully");
     }
 
     @And("launch Brit Insurance portal")
     public void launchBritUrl() throws Throwable {
         try {
-            // Launch or navigate to Brit Insurance portal
+            // Launch or navigate to Brit Insurance portal and assert on Page Title
             driver.get(BritInsurance_Portal);
             sleep(1000);
             System.out.println("Home Page Title is :" + " " + driver.getTitle());
             Assert.assertTrue(driver.getTitle().contains("Brit Insurance"));
-            System.out.println("Automation launched Home Page successfully");
         } catch (Exception e) {
             Assert.fail(e.getMessage());
             System.out.println("exception occured" + e);
@@ -52,9 +51,9 @@ public class HomeStepDef {
     public void acceptCookies() throws Throwable {
         try {
             HomePage homePage = new HomePage(driver);
+            // Accept Cookies
             if (homePage.cookiesDialog.isDisplayed()) {
                 homePage.acceptAllCookies.click();
-                System.out.println("Automation accepted cookies");
             }
         } catch (Exception e) {
             Assert.fail(e.getMessage());
@@ -66,14 +65,13 @@ public class HomeStepDef {
     @When("click on search button")
     public void clickSearchButton() throws Throwable {
         try {
+            // Assert search button and click
             HomePage homePage = new HomePage(driver);
             Assert.assertTrue(homePage.searchButton.isDisplayed());
-            System.out.println("Is Search button Displayed ? :" + " " + homePage.searchButton.isDisplayed());
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
             wait.until(ExpectedConditions.elementToBeClickable(homePage.searchButton));
             sleep(2000);
             homePage.searchButton.click();
-            System.out.println("Automation clicked search button successfully");
         } catch (Exception e) {
             Assert.fail(e.getMessage());
             System.out.println("exception occured" + e);
@@ -83,12 +81,12 @@ public class HomeStepDef {
     @When("enter search term {string}")
     public void enterSearchTerm(String text) throws Throwable {
         try {
+            // enter search term in search bar
             HomePage homePage = new HomePage(driver);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
             wait.until(ExpectedConditions.visibilityOf(homePage.searchBar));
             sleep(1000);
             homePage.searchBar.sendKeys(text);
-            System.out.println("Automation entered search term :"+" "+text);
         } catch (Exception e) {
             Assert.fail(e.getMessage());
             System.out.println("exception occured" + e);
@@ -98,21 +96,17 @@ public class HomeStepDef {
     @Then("validate search results")
     public void verifySearchResults() throws Throwable {
         try {
+            // Wait for the search results and assert each result.
             HomePage homePage = new HomePage(driver);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
             wait.until(ExpectedConditions.visibilityOf(homePage.searchResults));
             Assert.assertTrue(homePage.searchResults.isDisplayed());
             List<WebElement> resultList = driver.findElements(By.xpath(results));
-            System.out.println("total number of search results found :" + "" + resultList.size());
+            System.out.println("total search results found :" + "" + resultList.size());
             Assert.assertTrue(homePage.result1.isDisplayed());
-            System.out.println(homePage.result1.getText());
             Assert.assertTrue(homePage.result2.isDisplayed());
-            System.out.println(homePage.result2.getText());
             Assert.assertTrue(homePage.result3.isDisplayed());
-            System.out.println(homePage.result3.getText());
             Assert.assertTrue(homePage.result4.isDisplayed());
-            System.out.println(homePage.result4.getText());
-            System.out.println("search results displayed are verified");
         } catch (Exception e) {
             Assert.fail(e.getMessage());
             System.out.println("exception occured" + e);

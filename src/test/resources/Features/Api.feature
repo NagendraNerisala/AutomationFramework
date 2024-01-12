@@ -2,13 +2,7 @@ Feature: REST API Create, Read and Update ( using PATCH ) Operations
 
    #PATCH method is used for partial or full object updates.
 
-   @API_Patch_01 @API @Sanity @Regression
-  Scenario: To update and validate partial object details.
-    Given setup the payload
-    And Hit POST Url to create device
-    Then Hit PATCH URL to update device details
-
-  @API_Patch_02 @API @Sanity @Regression
+  @API_Patch_01 @API @Sanity @Regression
   Scenario: To update and validate partial object details.
     Given setup the payload using data table
       |Name           |Year      | Price   |CPU Model | Hard Disk Size |
@@ -18,7 +12,8 @@ Feature: REST API Create, Read and Update ( using PATCH ) Operations
       |Name                |
       |MacBook Air plus    |
 
-  @API_Patch_03 @API @Sanity @Regression
+
+  @API_Patch_02 @API @Sanity @Regression
   Scenario: To update and validate partial object details.
     Given setup the payload using data table
       |Name           |Year      | Price   |CPU Model | Hard Disk Size |
@@ -28,7 +23,8 @@ Feature: REST API Create, Read and Update ( using PATCH ) Operations
       |Year    |
       |2023    |
 
-  @API_Patch_04 @API @Sanity @Regression
+
+  @API_Patch_03 @API @Sanity @Regression
   Scenario: To update and validate partial object details.
     Given setup the payload using data table
       |Name           |Year      | Price   |CPU Model | Hard Disk Size |
@@ -38,7 +34,8 @@ Feature: REST API Create, Read and Update ( using PATCH ) Operations
       |Price    |
       |1299.99  |
 
-  @API_Patch_05 @API @Sanity @Regression
+
+  @API_Patch_04 @API @Sanity @Regression
   Scenario: To update and validate partial object details.
     Given setup the payload using data table
       |Name           |Year      | Price   |CPU Model | Hard Disk Size |
@@ -48,7 +45,8 @@ Feature: REST API Create, Read and Update ( using PATCH ) Operations
       |CPU Model    |
       |M3 chip      |
 
-  @API_Patch_06 @API @Sanity @Regression
+
+  @API_Patch_05 @API @Sanity @Regression
   Scenario: validate patch method to update partial device details.
     Given setup the payload using data table
       |Name           |Year      | Price   |CPU Model | Hard Disk Size |
@@ -58,7 +56,8 @@ Feature: REST API Create, Read and Update ( using PATCH ) Operations
       |Hard Disk Size    |
       |1 TB              |
 
-  @API_Patch_07 @API @Sanity @Regression
+
+  @API_Patch_06 @API @Sanity @Regression
   Scenario: validate patch method to update partial device details.
     Given setup the payload using data table
       |Name           |Year      | Price   |CPU Model | Hard Disk Size |
@@ -68,7 +67,8 @@ Feature: REST API Create, Read and Update ( using PATCH ) Operations
       |Name              |Year      | Price   |CPU Model     |
       |MacBook Air Pro   |2023      | 1299.99 |M3 chip plus  |
 
-  @API_Patch_08 @API @Sanity @Regression
+
+  @API_Patch_07 @API @Sanity @Regression
   Scenario: validate patch method to update device details.
     Given setup the payload using data table
       |Name           |Year      | Price  |CPU Model | Hard Disk Size |

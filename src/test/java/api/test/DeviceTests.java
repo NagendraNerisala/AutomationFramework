@@ -21,20 +21,6 @@ public class DeviceTests {
     Data dataPayload;
     String deviceId;
 
-    @Given("setup the payload")
-    public void setupDevicePayLoad() {
-        devicePayload = new Device();
-        dataPayload = new Data();
-        // reading the object details from variables and create payload
-        devicePayload.setName(deviceName);
-        dataPayload.setYear(year);
-        dataPayload.setPrice(price);
-        dataPayload.setCPU_model(cpuModel);
-        dataPayload.setHard_disk_size(HardDiscSize);
-
-        devicePayload.setData(dataPayload);
-    }
-
     @Given("setup the payload using data table")
     public void setupDevicePayLoadUsingDataTable(DataTable dataTable) {
         devicePayload = new Device();
@@ -76,23 +62,6 @@ public class DeviceTests {
         Response response= ObjectsEndPoints.readObject(String.valueOf(deviceId));
         response.then().log().all();
         Assert.assertEquals(response.getStatusCode(),200);
-    }
-
-
-    @And("Hit PATCH URL to update device details")
-    public void testPatchObject()
-    {
-
-        dataPayload.setCPU_model(updatedCpuModel);
-        devicePayload.setData(dataPayload);
-        System.out.println(devicePayload.toString());
-        Response response= ObjectsEndPoints.updateObject(deviceId,devicePayload);
-        response.then().log().all();
-        Assert.assertEquals(response.getStatusCode(),200);
-        Assert.assertEquals(response.body().asString().contains(updatedCpuModel),true);
-        JsonPath jsonPathEvaluator = response.jsonPath();
-        jsonPathEvaluator.get().equals(devicePayload);
-
     }
 
     @And("Hit PATCH URL to update device details using data table")

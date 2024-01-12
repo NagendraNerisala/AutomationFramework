@@ -35,7 +35,6 @@ public class ObjectsEndPoints {
                 .accept(ContentType.JSON)
                 .pathParam("id",Id)
                 .body(payload)
-                .log().body()
          .when()
                 .patch(Routes.patch_url);
 
