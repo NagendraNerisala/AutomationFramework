@@ -6,6 +6,7 @@ This is one unified automation framework that I have crafted to execute all the 
 1. To ensure Java and Maven are installed and configured in IDE.
 
 2. Create a New Project by Get from VCS
+   
 https://github.com/NagendraNerisala/AutomationFramework
 
 4. Build Project
