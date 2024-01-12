@@ -12,7 +12,8 @@ This is one unified automation framework that I have crafted to execute all the 
    ![image](https://github.com/NagendraNerisala/AutomationFramework/assets/132339511/6debdfcf-138b-4d32-8714-f734e8c9503d)
    
 
-   ![image](https://github.com/NagendraNerisala/AutomationFramework/assets/132339511/e48e0141-a051-4185-ae59-69a042d0050a)
+   ![image](https://github.com/NagendraNerisala/AutomationFramework/assets/132339511/abb4e2fd-2639-4ecd-ab6b-c84722eaf235)
+
 
 
 
