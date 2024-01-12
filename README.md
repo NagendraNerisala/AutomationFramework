@@ -1,4 +1,5 @@
 **Automation Framework**
+
 This is one unified automation framework that I have crafted to execute all the different types of tests ( ex : UI , API Automation…)
 
 **Prerequisites:**
