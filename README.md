@@ -5,7 +5,7 @@ This is one unified automation framework that I have crafted to execute all the 
 **Prerequisites:**
 1. Java openjdk-20.0.1 and above
    
-2. Maven installed and Plugin configured in IDE.
+2. Maven Plugin installed and configured in IDE.
 
 3. Create a New Project by Get from VCS
    
