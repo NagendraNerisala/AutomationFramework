@@ -1,6 +1,6 @@
 **Automation Framework**
 
-This is one unified automation framework that I have crafted to execute all the different types of tests ( ex : UI , API Automation…)
+This is one unified automation framework that I have crafted to execute all the different types of tests.
 
 **Prerequisites:**
 1. To ensure Java and Maven are installed and configured in IDE.
