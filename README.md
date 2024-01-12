@@ -11,7 +11,7 @@ This is one unified automation framework that I have crafted to execute all the 
    
 https://github.com/NagendraNerisala/AutomationFramework
 
-5. Build Project
+4. Build or Reload Maven Project
 
 **Steps to execute Automation**
 1. Open Runner File from TestRunner within Framework and configure the tag under tags.
