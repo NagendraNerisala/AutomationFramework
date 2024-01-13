@@ -3,8 +3,27 @@ package api.payload;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Data {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Data data = (Data) o;
+        return year == data.year && Double.compare(data.price, price) == 0 && Objects.equals(CPU_model, data.CPU_model) && Objects.equals(Hard_disk_size, data.Hard_disk_size);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, price, CPU_model, Hard_disk_size);
+    }
+
+    public Data(){
+        // Empty Constructor
+    }
     /*Variables of Data class*/
     @SerializedName("year")
     private int year;

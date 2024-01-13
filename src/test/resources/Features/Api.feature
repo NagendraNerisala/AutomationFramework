@@ -23,6 +23,7 @@ Feature: REST API Create, Read, Update ( using PATCH ) and Delete Operations
     Then Hit PATCH URL to update device data modified year
       |Year      | Price   |CPU Model | Hard Disk Size |
       |2023      | 1499.99 |M1 chip   | 1 TB           |
+    And Hit DELETE Url to delete device
 
 
   @API_Patch_03 @API @Sanity @Regression
@@ -71,6 +72,7 @@ Feature: REST API Create, Read, Update ( using PATCH ) and Delete Operations
     Then Hit PATCH URL to update device modified details
       |Name          |Year      | Price   |CPU Model  |Hard Disk Size |
       |MacBook Pro   |2023      | 1599.99 |M3 chip    |2 TB           |
+    And Hit DELETE Url to delete device
 
 
   @API_Patch_07 @API @Sanity @Regression
@@ -87,6 +89,7 @@ Feature: REST API Create, Read, Update ( using PATCH ) and Delete Operations
       |iphone 15 Pro       |2024      | 999.99 |A17 Pro          | 512 GB         |
       |iphone 15 Pro       |2024      | 999.99 |A17 Pro          | 1 TB           |
       |iphone 15 Pro Max   |2024      | 1499.99|A17 Pro Max      | 1 TB           |
+    And Hit DELETE Url to delete device
 
 
 

@@ -14,6 +14,7 @@ public class Device {
     private String name;
 
     @SerializedName("data")
+    @JsonInclude(value = JsonInclude.Include.CUSTOM,valueFilter = Data.class)
     private Data data;
 
     /*Getter and Setter methods*/
