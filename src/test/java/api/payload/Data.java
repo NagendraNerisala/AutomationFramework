@@ -1,20 +1,25 @@
 package api.payload;
 
-import com.google.gson.annotations.SerializedName;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.gson.annotations.SerializedName;
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Data {
+    /*Variables of Data class*/
     @SerializedName("year")
-    int year;
+    private int year;
 
     @SerializedName("price")
-    double price;
+    private double price;
 
     @SerializedName("CPU model")
-    String CPU_model;
+    private String CPU_model;
 
     @SerializedName("Hard disk size")
-    String Hard_disk_size;
+    private String Hard_disk_size;
 
+
+    /*Getter and Setter methods*/
     public void setYear(int year)
     {
         this.year = year;

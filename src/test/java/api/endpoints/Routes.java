@@ -1,6 +1,6 @@
 package api.endpoints;
 
-// contains URLs
+/* contains URLs */
 public class Routes {
     public static String base_url="https://api.restful-api.dev/";
     public static String post_url=base_url+"/objects";

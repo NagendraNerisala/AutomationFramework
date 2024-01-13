@@ -3,6 +3,7 @@ package api.test;
 import api.endpoints.ObjectsEndPoints;
 import api.payload.Data;
 import api.payload.Device;
+
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -10,19 +11,16 @@ import io.cucumber.java.en.Then;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
-
 import java.util.List;
 import java.util.Map;
 
-import static StepDefs.allVariables.*;
-
 public class DeviceTests {
-    Device devicePayload;
-    Data dataPayload;
-    String deviceId;
+    private Device devicePayload;
+    private Data dataPayload;
+    private String deviceId;
 
-    @Given("setup the payload using data table")
-    public void setupDevicePayLoadUsingDataTable(DataTable dataTable) {
+    @Given("setup device payload")
+    public void setupDevicePayload(DataTable dataTable) {
         devicePayload = new Device();
         dataPayload = new Data();
         List<Map<String, String>> deviceDetails = dataTable.asMaps(String.class, String.class);
@@ -33,6 +31,7 @@ public class DeviceTests {
             String cpuModel = device.get("CPU Model");
             String hardDiskSize = device.get("Hard Disk Size");
 
+            /*Construct Device Payload*/
             devicePayload.setName(name);
             dataPayload.setYear(year);
             dataPayload.setPrice(price);
@@ -51,12 +50,12 @@ public class DeviceTests {
         Assert.assertEquals(response.getStatusCode(),200);
         JsonPath jsonPathEvaluator = response.jsonPath();
         jsonPathEvaluator.get().equals(devicePayload);
-        // Reading the object id for API chaining process or to update object using PATCH.
+        // Read the object id for API chaining process or to update object using PATCH.
         deviceId = jsonPathEvaluator.get("id");
 
     }
 
-    @And("read Created Object using GET")
+    @And("Hit GET Url to read device")
    public void testGetObject()
     {
         Response response= ObjectsEndPoints.readObject(String.valueOf(deviceId));
@@ -91,104 +90,64 @@ public class DeviceTests {
         }
     }
 
-    @And("Hit PATCH URL to update device Name")
-    public void updateDeviceName(DataTable dataTable) {
-        List<Map<String, String>> deviceDetails = dataTable.asMaps(String.class, String.class);
-        for (Map<String, String> device : deviceDetails) {
-            String name = device.get("Name");
-            devicePayload.setName(name);
-            Response response = ObjectsEndPoints.updateObject(deviceId, devicePayload);
-            response.then().log().all();
-            Assert.assertEquals(response.getStatusCode(), 200);
-            Assert.assertEquals(response.getBody().asString().contains(name),true);
-
-        }
-    }
-
-    @And("Hit PATCH URL to update device year")
-    public void updateDeviceYear(DataTable dataTable) {
-        List<Map<String, String>> deviceDetails = dataTable.asMaps(String.class, String.class);
-
-        for (Map<String, String> device : deviceDetails) {
-            int year = Integer.parseInt(device.get("Year"));
-            dataPayload.setYear(year);
-            devicePayload.setData(dataPayload);
-            Response response = ObjectsEndPoints.updateObject(deviceId, devicePayload);
-            response.then().log().all();
-            Assert.assertEquals(response.getStatusCode(), 200);
-            Assert.assertEquals(response.getBody().asString().contains(Integer.toString(year)),true);
-
-        }
-    }
-
-    @And("Hit PATCH URL to update device price")
-    public void updateDevicePrice(DataTable dataTable) {
-        List<Map<String, String>> deviceDetails = dataTable.asMaps(String.class, String.class);
-
-        for (Map<String, String> device : deviceDetails) {
-            double price = Double.parseDouble(device.get("Price"));
-            dataPayload.setPrice(price);
-            devicePayload.setData(dataPayload);
-            Response response = ObjectsEndPoints.updateObject(deviceId, devicePayload);
-            response.then().log().all();
-            Assert.assertEquals(response.getStatusCode(), 200);
-            Assert.assertEquals(response.getBody().asString().contains(Double.toString(price)),true);
-
-        }
-    }
-
-    @Then("Hit PATCH URL to update device cpu model")
-    @Then("Hit PATCH URL to update device hard disk size")
-    @Then("Hit PATCH URL to update device details from table")
-    public void updateDeviceCPUModel(DataTable dataTable) {
+    @Then("Hit PATCH URL to update device modified name")
+    @Then("Hit PATCH URL to update device data modified year")
+    @Then("Hit PATCH URL to update device data modified price")
+    @Then("Hit PATCH URL to update device data modified cpu model")
+    @Then("Hit PATCH URL to update device data modified hard disk size")
+    @Then("Hit PATCH URL to update device modified details")
+    public void updateDeviceDetails(DataTable dataTable) {
         try {
+            Device modifiedDevicePayload = new Device();
+            Data modifiedDataPayload = new Data();
+
             List<Map<String, String>> deviceDetails = dataTable.asMaps(String.class, String.class);
             for (Map<String, String> device : deviceDetails) {
 
                 String name = null;
                 if (device.containsKey("Name")) {
                     name = device.get("Name");
-                    devicePayload.setName(name);
+                    modifiedDevicePayload.setName(name);
                 }
                 int year = 0;
                 if (device.containsKey("Year")) {
                     year = Integer.parseInt(device.get("Year"));
-                    dataPayload.setYear(year);
+                    modifiedDataPayload.setYear(year);
                 }
                 double price = 0;
                 if (device.containsKey("Price")) {
                     price = Double.parseDouble(device.get("Price"));
-                    dataPayload.setPrice(price);
+                    modifiedDataPayload.setPrice(price);
                 }
                 String cpuModel = null;
                 if (device.containsKey("CPU Model")) {
                     cpuModel = device.get("CPU Model");
-                    dataPayload.setCPU_model(cpuModel);
+                    modifiedDataPayload.setCPU_model(cpuModel);
                 }
                 String hardDiskSize = null;
                 if (device.containsKey("Hard Disk Size")) {
                     hardDiskSize = device.get("Hard Disk Size");
-                    dataPayload.setHard_disk_size(hardDiskSize);
+                    modifiedDataPayload.setHard_disk_size(hardDiskSize);
                 }
-                devicePayload.setData(dataPayload);
-                Response response = ObjectsEndPoints.updateObject(deviceId, devicePayload);
+                modifiedDevicePayload.setData(modifiedDataPayload);
+                Response response = ObjectsEndPoints.updateObject(deviceId, modifiedDevicePayload);
                 response.then().log().all();
                 Assert.assertEquals(response.getStatusCode(), 200);
 
                 if (device.containsKey("Name")) {
-                    Assert.assertEquals(response.getBody().asString().contains(name), true);
+                    Assert.assertTrue(response.getBody().asString().contains(name));
                 }
                 if (device.containsKey("Year")) {
-                    Assert.assertEquals(response.getBody().asString().contains(Integer.toString(year)), true);
+                    Assert.assertTrue(response.getBody().asString().contains(Integer.toString(year)));
                 }
                 if (device.containsKey("Price")) {
-                    Assert.assertEquals(response.getBody().asString().contains(Double.toString(price)), true);
+                    Assert.assertTrue(response.getBody().asString().contains(Double.toString(price)));
                 }
                 if (device.containsKey("CPU Model")) {
-                    Assert.assertEquals(response.getBody().asString().contains(cpuModel), true);
+                    Assert.assertTrue(response.getBody().asString().contains(cpuModel));
                 }
                 if (device.containsKey("Hard Disk Size")) {
-                    Assert.assertEquals(response.getBody().asString().contains(hardDiskSize), true);
+                    Assert.assertTrue(response.getBody().asString().contains(hardDiskSize));
                 }
 
             }
@@ -197,4 +156,13 @@ public class DeviceTests {
             Assert.fail(e.getMessage());
         }
     }
+
+    @Given("Hit DELETE Url to delete device")
+    public void testDeleteObject()
+    {
+        Response response= ObjectsEndPoints.deleteObject(deviceId);
+        response.then().log().all();
+        Assert.assertEquals(response.getStatusCode(),200);
+    }
+
 }

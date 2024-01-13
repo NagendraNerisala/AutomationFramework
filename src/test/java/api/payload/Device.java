@@ -1,19 +1,22 @@
 package api.payload;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.annotations.SerializedName;
 
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Device {
 
+    /* Variables of Device class */
     @SerializedName("id")
-    String id;
+    private String id;
 
     @SerializedName("name")
-    String name;
+    private String name;
 
     @SerializedName("data")
-    Data data;
+    private Data data;
 
-
+    /*Getter and Setter methods*/
     public void setId(String id)
     {
         this.id = id;
