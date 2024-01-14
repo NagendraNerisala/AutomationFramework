@@ -36,11 +36,9 @@ public class HomeStepDef {
     @And("launch Brit Insurance portal")
     public void launchBritUrl() throws Throwable {
         try {
-            // Launch or navigate to Brit Insurance portal and assert on Page Title
+            // Launch or navigate to Brit Insurance portal and assert on Home Page Title
             driver.get(BritInsurance_Portal);
-            sleep(1000);
-            System.out.println("Home Page Title is :" + " " + driver.getTitle());
-            Assert.assertTrue(driver.getTitle().contains("Brit Insurance"));
+            Assert.assertEquals("Brit Insurance", driver.getTitle());
         } catch (Exception e) {
             Assert.fail(e.getMessage());
             System.out.println("exception occured" + e);
@@ -59,7 +57,6 @@ public class HomeStepDef {
             Assert.fail(e.getMessage());
             System.out.println("exception occured" + e);
         }
-
     }
 
     @When("click on search button")
@@ -67,9 +64,9 @@ public class HomeStepDef {
         try {
             // Assert search button and click
             HomePage homePage = new HomePage(driver);
-            Assert.assertTrue(homePage.searchButton.isDisplayed());
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
             wait.until(ExpectedConditions.elementToBeClickable(homePage.searchButton));
+            Assert.assertTrue(homePage.searchButton.isDisplayed());
             sleep(2000);
             homePage.searchButton.click();
         } catch (Exception e) {
@@ -85,7 +82,6 @@ public class HomeStepDef {
             HomePage homePage = new HomePage(driver);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
             wait.until(ExpectedConditions.visibilityOf(homePage.searchBar));
-            sleep(1000);
             homePage.searchBar.sendKeys(text);
         } catch (Exception e) {
             Assert.fail(e.getMessage());
@@ -111,8 +107,8 @@ public class HomeStepDef {
             Assert.fail(e.getMessage());
             System.out.println("exception occured" + e);
         }
-
     }
+
     @Given("close browser")
     public void closeChromeBrowser() throws InterruptedException {
         // close the browser

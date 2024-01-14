@@ -47,7 +47,10 @@ public class DeviceTests {
     {
         Response response= ObjectsEndPoints.createObject(devicePayload);
         response.then().log().all();
+        /*Assert success response code*/
         Assert.assertEquals(response.getStatusCode(),200);
+
+        /*validate response body with input devicePayload*/
         JsonPath jsonPathEvaluator = response.jsonPath();
         jsonPathEvaluator.get().equals(devicePayload);
         // Read the object id for API chaining process or to update object using PATCH.
@@ -83,7 +86,9 @@ public class DeviceTests {
 
             Response response = ObjectsEndPoints.updateObject(deviceId, devicePayload);
             response.then().log().all();
+            /*Assert success response code*/
             Assert.assertEquals(response.getStatusCode(), 200);
+            /*validate output response body with input devicePayload*/
             JsonPath jsonPathEvaluator = response.jsonPath();
             jsonPathEvaluator.get().equals(devicePayload);
 
@@ -104,36 +109,52 @@ public class DeviceTests {
             List<Map<String, String>> deviceDetails = dataTable.asMaps(String.class, String.class);
             for (Map<String, String> device : deviceDetails) {
 
+                /*using devicePayload, dataPayload from POST request to update with modified payload
+                 and to validate with output PATCH response body*/
+
                 String name = null;
                 if (device.containsKey("Name")) {
                     name = device.get("Name");
                     modifiedDevicePayload.setName(name);
+                    devicePayload.setName(name);
                 }
                 int year = 0;
                 if (device.containsKey("Year")) {
                     year = Integer.parseInt(device.get("Year"));
                     modifiedDataPayload.setYear(year);
+                    dataPayload.setYear(year);
                 }
                 double price = 0;
                 if (device.containsKey("Price")) {
                     price = Double.parseDouble(device.get("Price"));
                     modifiedDataPayload.setPrice(price);
+                    dataPayload.setPrice(price);
                 }
                 String cpuModel = null;
                 if (device.containsKey("CPU Model")) {
                     cpuModel = device.get("CPU Model");
                     modifiedDataPayload.setCPU_model(cpuModel);
+                    dataPayload.setCPU_model(cpuModel);
                 }
                 String hardDiskSize = null;
                 if (device.containsKey("Hard Disk Size")) {
                     hardDiskSize = device.get("Hard Disk Size");
                     modifiedDataPayload.setHard_disk_size(hardDiskSize);
+                    dataPayload.setHard_disk_size(hardDiskSize);
                 }
                 modifiedDevicePayload.setData(modifiedDataPayload);
+                devicePayload.setData(dataPayload);
                 Response response = ObjectsEndPoints.updateObject(deviceId, modifiedDevicePayload);
                 response.then().log().all();
+
+                /*validate success response code*/
                 Assert.assertEquals(response.getStatusCode(), 200);
 
+                /*validate response body with modified payload*/
+                JsonPath jsonPathEvaluator = response.jsonPath();
+                jsonPathEvaluator.get().equals(devicePayload);
+
+                /*validate response body with modified attributes*/
                 if (device.containsKey("Name")) {
                     Assert.assertTrue(response.getBody().asString().contains(name));
                 }
@@ -149,7 +170,6 @@ public class DeviceTests {
                 if (device.containsKey("Hard Disk Size")) {
                     Assert.assertTrue(response.getBody().asString().contains(hardDiskSize));
                 }
-
             }
         }
         catch (Exception e){
@@ -162,6 +182,7 @@ public class DeviceTests {
     {
         Response response= ObjectsEndPoints.deleteObject(deviceId);
         response.then().log().all();
+        /*validate success response code*/
         Assert.assertEquals(response.getStatusCode(),200);
     }
 

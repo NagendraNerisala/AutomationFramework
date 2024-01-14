@@ -6,7 +6,7 @@ import org.testng.annotations.*;
 @io.cucumber.testng.CucumberOptions(
         features = {"src/test/resources/Features"}
         , glue = {"StepDefs", "Pages", "api"}
-        , tags = "@UI"
+        , tags = "@Regression"
         , monochrome = true
         , plugin = {"html:target/cucumber-reports/index.html"}
 )
