@@ -38,4 +38,8 @@ https://github.com/NagendraNerisala/AutomationFramework
 
 
 3. Run the runner
+
+**NOTE**
+1. Make sure Google Chrome Browser available to run UI tests.
+2. VPN disconnected to run API tests to avoid SSLHandshakeException: PKIX path building failed: Exception.
    
